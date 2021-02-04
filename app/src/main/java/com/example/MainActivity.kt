@@ -45,10 +45,14 @@ class MainActivity : AppCompatActivity() {
                 editor.putBoolean("CHECKBOX",checked)
                 editor.apply()
                 Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show()
+                if (name.isEmpty() || age== null){
+                    Toast.makeText(this, "Enter Name Or Age", Toast.LENGTH_SHORT).show()
+                }else{
+                    val intent = Intent(this,AnotherActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
 
-                val intent = Intent(this,AnotherActivity::class.java)
-                startActivity(intent)
-                finish()
             }catch (ex: NumberFormatException){
                 Toast.makeText(this, "Enter Name Or Age", Toast.LENGTH_SHORT).show()
             }
