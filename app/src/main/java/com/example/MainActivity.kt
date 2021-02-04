@@ -10,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import com.example.sharedprefrencedemo.R
+import java.lang.NumberFormatException
 
 class MainActivity : AppCompatActivity() {
     val Pref_Name = "SHARED_PREF"
@@ -34,19 +35,23 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         loginBtn.setOnClickListener{
-            val name: String = nameEditTxt.text.toString()
-            val age: Int = ageEditTxt.text.toString().toInt()
-            val checked: Boolean = checkBoxVal.isChecked
-            val editor: SharedPreferences.Editor = sharedPrefrence.edit()
-            editor.putString("NAME",name)
-            editor.putInt("AGE",age)
-            editor.putBoolean("CHECKBOX",checked)
-            editor.apply()
-            Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show()
+            try {
+                val name: String = nameEditTxt.text.toString()
+                val age: Int = ageEditTxt.text.toString().toInt()
+                val checked: Boolean = checkBoxVal.isChecked
+                val editor: SharedPreferences.Editor = sharedPrefrence.edit()
+                editor.putString("NAME",name)
+                editor.putInt("AGE",age)
+                editor.putBoolean("CHECKBOX",checked)
+                editor.apply()
+                Toast.makeText(this, "Information Saved", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this,AnotherActivity::class.java)
-            startActivity(intent)
-            finish()
+                val intent = Intent(this,AnotherActivity::class.java)
+                startActivity(intent)
+                finish()
+            }catch (ex: NumberFormatException){
+                Toast.makeText(this, "Enter Name Or Age", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
